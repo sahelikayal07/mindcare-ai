@@ -136,6 +136,25 @@ const GLOBAL_CSS = `
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes fireflyFloat1 {
+    0%   { transform: translate(0px, 0px) scale(1); opacity: 0; }
+    20%  { opacity: 0.55; }
+    50%  { transform: translate(18px, -22px) scale(1.1); opacity: 0.35; }
+    80%  { opacity: 0.5; }
+    100% { transform: translate(-8px, 12px) scale(0.95); opacity: 0; }
+  }
+  @keyframes fireflyFloat2 {
+    0%   { transform: translate(0px, 0px); opacity: 0; }
+    25%  { opacity: 0.45; }
+    60%  { transform: translate(-20px, -16px); opacity: 0.3; }
+    100% { transform: translate(10px, 20px); opacity: 0; }
+  }
+  @keyframes fireflyFloat3 {
+    0%   { transform: translate(0px, 0px) scale(1); opacity: 0; }
+    30%  { opacity: 0.5; }
+    55%  { transform: translate(14px, -28px) scale(1.05); opacity: 0.25; }
+    100% { transform: translate(-12px, 8px) scale(0.9); opacity: 0; }
+  }
 `;
 
 // ── Inject CSS ─────────────────────────────────────────────────────────────────
@@ -283,6 +302,25 @@ const ForestBackground = () => (
       position: "absolute", inset: 0,
       background: "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%)",
     }} />
+    {/* Warm amber ambient glow — like distant firelight through trees */}
+    <div style={{
+      position: "absolute",
+      bottom: "25%", left: "50%",
+      transform: "translateX(-50%)",
+      width: "70%", height: "45%",
+      background: "radial-gradient(ellipse at center, rgba(255,200,80,0.07) 0%, rgba(200,140,30,0.04) 45%, transparent 75%)",
+      pointerEvents: "none",
+      filter: "blur(30px)",
+    }} />
+    {/* Secondary warm glow — upper right, like moonlight tinted warm */}
+    <div style={{
+      position: "absolute",
+      top: "10%", right: "20%",
+      width: "35%", height: "40%",
+      background: "radial-gradient(ellipse at center, rgba(255,210,100,0.05) 0%, transparent 70%)",
+      pointerEvents: "none",
+      filter: "blur(40px)",
+    }} />
     {/* Grain */}
     <div style={{
       position: "absolute", inset: "-50%",
@@ -366,10 +404,17 @@ const Cat = () => (
     right: "18px",
     width: "90px",
     zIndex: 10,
-    filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 6px rgba(180,140,40,0.15))",
+    filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 6px rgba(180,140,40,0.15)) drop-shadow(0 0 18px rgba(255,190,60,0.12))",
     animation: "breathe 4s ease-in-out infinite",
     cursor: "default",
   }}>
+    {/* Warm light halo behind cat */}
+    <div style={{
+      position: "absolute", inset: "-12px",
+      borderRadius: "50%",
+      background: "radial-gradient(ellipse at 40% 60%, rgba(255,200,70,0.1) 0%, transparent 70%)",
+      pointerEvents: "none",
+    }} />
     <CatSVG style={{ width: "100%", height: "auto" }} />
   </div>
 );
@@ -712,6 +757,35 @@ const HomePage = () => {
         width: "100%", maxWidth: "620px",
         animation: "fadeIn 1s ease-out 0.65s both",
       }}>
+        {/* Warm ambient glow behind input box */}
+        <div style={{
+          position: "absolute",
+          inset: "-30px",
+          background: "radial-gradient(ellipse at 50% 60%, rgba(255,195,60,0.07) 0%, transparent 65%)",
+          pointerEvents: "none",
+          filter: "blur(20px)",
+          zIndex: 0,
+        }} />
+        {/* Firefly particles */}
+        {[
+          { left: "8%",  top: "20%", anim: "fireflyFloat1 7s ease-in-out 0s infinite",   size: 4 },
+          { left: "88%", top: "55%", anim: "fireflyFloat2 9s ease-in-out 1.5s infinite", size: 3 },
+          { left: "15%", top: "75%", anim: "fireflyFloat3 8s ease-in-out 3s infinite",   size: 3.5 },
+          { left: "75%", top: "15%", anim: "fireflyFloat1 11s ease-in-out 2s infinite",  size: 3 },
+          { left: "50%", top: "85%", anim: "fireflyFloat2 6s ease-in-out 4s infinite",   size: 2.5 },
+        ].map((f, i) => (
+          <div key={i} style={{
+            position: "absolute",
+            left: f.left, top: f.top,
+            width: `${f.size}px`, height: `${f.size}px`,
+            borderRadius: "50%",
+            background: "rgba(255,220,80,0.9)",
+            boxShadow: "0 0 6px 2px rgba(255,200,60,0.4), 0 0 12px 4px rgba(255,180,40,0.2)",
+            animation: f.anim,
+            pointerEvents: "none",
+            zIndex: 0,
+          }} />
+        ))}
         {/* Cat sits here */}
         <Cat />
 
@@ -725,7 +799,8 @@ const HomePage = () => {
           boxShadow: `
             0 8px 48px rgba(0,0,0,0.5),
             inset 0 1px 0 rgba(80,160,90,0.08),
-            0 0 60px rgba(20,60,25,0.15)
+            0 0 60px rgba(20,60,25,0.15),
+            0 0 40px rgba(200,150,40,0.06)
           `,
         }}>
           <textarea
@@ -752,7 +827,7 @@ const HomePage = () => {
             }}
             onFocus={e => {
               e.target.parentElement.parentElement.style.borderColor = "rgba(60,140,70,0.4)";
-              e.target.parentElement.parentElement.style.boxShadow = "0 8px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(80,160,90,0.08), 0 0 80px rgba(30,90,40,0.25)";
+              e.target.parentElement.parentElement.style.boxShadow = "0 8px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(80,160,90,0.08), 0 0 80px rgba(30,90,40,0.25), 0 0 50px rgba(200,160,40,0.08)";
             }}
             onBlur={e => {
               e.target.parentElement.parentElement.style.borderColor = "rgba(50,100,55,0.22)";
@@ -789,8 +864,8 @@ const HomePage = () => {
               }}
               onMouseEnter={e => {
                 if (!loading && input.trim()) {
-                  e.currentTarget.style.boxShadow = "0 0 20px rgba(40,120,55,0.5)";
-                  e.currentTarget.style.borderColor = "rgba(80,160,90,0.5)";
+                  e.currentTarget.style.boxShadow = "0 0 20px rgba(40,120,55,0.5), 0 0 28px rgba(220,170,40,0.18)";
+                  e.currentTarget.style.borderColor = "rgba(180,150,60,0.45)";
                 }
               }}
               onMouseLeave={e => {
