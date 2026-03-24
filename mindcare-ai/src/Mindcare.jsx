@@ -650,7 +650,7 @@ const HomePage = () => {
     setCrisis(detectedEmotion === "Crisis");
 
     try {
-      const res = await fetch("http://localhost:8000/analyze", {
+      const res = await fetch("https://mindcare-backend-tg3k.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: input }),
