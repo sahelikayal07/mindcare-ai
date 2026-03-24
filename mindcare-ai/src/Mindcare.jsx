@@ -1017,7 +1017,7 @@ const JournalPage = () => {
       height: "100%", padding: "48px 56px",
       display: "flex", flexDirection: "column",
       animation: "pageReveal 0.6s ease-out",
-      overflow: "hidden",
+      overflowY: "auto",
     }}>
       <div style={{ marginBottom: "36px", animation: "fadeIn 0.8s ease-out 0.1s both" }}>
         <p style={{ fontSize: "0.72rem", letterSpacing: "0.25em", color: "var(--text-dim)", textTransform: "uppercase", marginBottom: "10px" }}>
@@ -1035,7 +1035,7 @@ const JournalPage = () => {
 
       <div style={{
         flex: 1, display: "flex", gap: "32px",
-        overflow: "hidden",
+        overflow: "visible",
         animation: "fadeIn 0.8s ease-out 0.25s both",
       }}>
         {/* Write area */}
@@ -1227,7 +1227,7 @@ const MoodTrackerPage = () => {
       height: "100%", padding: "48px 56px",
       display: "flex", flexDirection: "column",
       animation: "pageReveal 0.6s ease-out",
-      overflow: "hidden",
+      overflowY: "auto",
     }}>
       <div style={{ marginBottom: "36px", animation: "fadeIn 0.8s ease-out 0.1s both" }}>
         <p style={{ fontSize: "0.72rem", letterSpacing: "0.25em", color: "var(--text-dim)", textTransform: "uppercase", marginBottom: "10px" }}>
@@ -1242,7 +1242,7 @@ const MoodTrackerPage = () => {
         </h2>
       </div>
 
-      <div style={{ flex: 1, display: "flex", gap: "32px", overflow: "hidden" }}>
+      <div style={{ flex: 1, display: "flex", gap: "32px", overflow: "visible" }}>
         {/* Left: select + note */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "24px", animation: "fadeIn 0.8s ease-out 0.2s both" }}>
           <div>
@@ -1489,7 +1489,7 @@ const ProfilePage = () => {
       height: "100%", padding: "48px 56px",
       display: "flex", flexDirection: "column",
       animation: "pageReveal 0.6s ease-out",
-      overflow: "hidden",
+      overflowY: "auto",
     }}>
       <div style={{ marginBottom: "36px", animation: "fadeIn 0.8s ease-out 0.1s both" }}>
         <p style={{ fontSize: "0.72rem", letterSpacing: "0.25em", color: "var(--text-dim)", textTransform: "uppercase", marginBottom: "10px" }}>
@@ -1504,7 +1504,7 @@ const ProfilePage = () => {
         </h2>
       </div>
 
-      <div style={{ flex: 1, display: "flex", gap: "36px", overflow: "hidden" }}>
+      <div style={{ flex: 1, display: "flex", gap: "36px", overflow: "visible", flexWrap: "wrap" }}>
         {/* Profile card */}
         <div style={{ flex: 1, animation: "fadeIn 0.8s ease-out 0.2s both" }}>
           <div style={{
@@ -1762,7 +1762,8 @@ const Layout = ({ children }) => (
     <div style={{
       flex: 1,
       marginLeft: "var(--sidebar-w)",
-      overflow: "hidden",
+      overflowY: "auto",
+      overflowX: "hidden",
       position: "relative",
       zIndex: 10,
     }}>
